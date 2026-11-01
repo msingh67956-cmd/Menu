@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rishabh Family Restaurant – Menu</title>
+<style>
+:root{--bg:#fff8f0;--card:#fff;--ink:#2a1a14;--mut:#7a6258;--red:#b3141f;--gold:#f2b705;--line:#ecd9c8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1210;--card:#271a17;--ink:#f6e9df;--mut:#b99f92;--red:#ff5a5f;--gold:#f2b705;--line:#3d2b26;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1210;--card:#271a17;--ink:#f6e9df;--mut:#b99f92;--red:#ff5a5f;--gold:#f2b705;--line:#3d2b26;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:120px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Devanagari",sans-serif;line-height:1.35}
+header{background:#b3141f;color:#fff;text-align:center;padding:18px 12px 12px}
+header h1{margin:0;font-size:1.5rem;color:#fff}header p{margin:4px 0 0;font-size:.85rem;color:#ffd9a0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding:8px 10px;border-bottom:1px solid var(--line)}
+.bar input{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:22px;background:var(--card);color:var(--ink);font-size:1rem}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-top:8px;scrollbar-width:none}
+.chips a{white-space:nowrap;padding:6px 12px;border-radius:16px;background:var(--card);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:.85rem}
+main{max-width:640px;margin:0 auto;padding:10px 12px 90px}
+section{margin-top:16px}
+h2{margin:0 0 6px;padding:6px 12px;background:var(--gold);color:#3a1a00;border-radius:8px;font-size:1.05rem}
+ul{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:10px}
+li{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line)}
+li:last-child{border:0}li b{color:var(--red);white-space:nowrap}
+.hide{display:none}
+footer{text-align:center;color:var(--mut);font-size:.78rem;padding:10px 12px 30px}
+.call{position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line);display:flex;gap:8px;justify-content:center}
+.call a{flex:1;max-width:300px;text-align:center;padding:12px;border-radius:24px;background:#1a9a4a;color:#fff;text-decoration:none;font-weight:600}
+#none{text-align:center;color:var(--mut);padding:30px}
+</style></head><body>
+<header><h1>ऋषभ फैमिली रेस्टोरेंट</h1><p>Rishabh Family Restaurant · Menu</p></header>
+<div class="bar"><input id="q" type="search" placeholder="खोजें: पनीर, चिकन, मोमो…"><nav class="chips" id="chips"></nav></div>
+<main id="m"></main><p id="none" class="hide">कुछ नहीं मिला</p>
+<footer>FSSAI: 10419250000032<br>सभी रेट रुपये में हैं।</footer>
+<div class="call"><a id="wa" href="#">WhatsApp पर ऑर्डर करें</a></div>
+<script>
+var PHONE="919511609519";
+// [title, prefix, "item price;item price"]
+var D=[
+["सुबह का नाश्ता","","आलू पराठा 40;पनीर पराठा 70;सत्तू पराठा 50;प्लेन पराठा 25;मूली पराठा 40;गोभी पराठा 50;मिक्स पराठा 50"],
+["स्नैक्स","","पनीर पकौड़ा 140;वेज पकौड़ा 100;ब्रेड आमलेट 60;प्याज पकौड़ा 100;वेज कटलेट 70;पनीर कटलेट 90;चिकन पकौड़ा 190;चिकन कटलेट 120;फिंगर चिप्स 100;पापड़ 15"],
+["चाय / कॉफी / ड्रिंक्स","","चाय 20;कॉफी 60;कोल्ड कॉफी 70;ब्लैक कॉफी 40;लेमन टी 15;कोल्ड कॉफी (आइसक्रीम के साथ) 100;मसाला कोल्डड्रिंक 40;लस्सी 50"],
+["सूप","","टोमेटो सूप 70;वेज सूप 80;वेज हॉट एण्ड सॉर सूप 90;वेज मनचाउ सूप 120;चिकन सूप 100;चिकन हॉट एण्ड सॉर सूप 120;चिकन मनचाउ सूप 120"],
+["सलाद","","ओनियन सलाद 40;ग्रीन सलाद 70;फ्रूट सलाद 120"],
+["रायता","","मिक्स रायता 70;बूंदी रायता 80;फ्रूट रायता 110;प्लेन रायता 50;पाइनएपल रायता 100"],
+["वेज तन्दुरी","","पनीर टिक्का 200;पनीर रेशमी कबाब 220;पनीर बोटी कबाब 190;वेज सीक कबाब 190;हरा-भरा कबाब 220"],
+["नानवेज तन्दुरी","","चिकन टिक्का 260;चिकन रेशमी कबाब 300;चिकन बोटी कबाब 280;चिकन लेग कबाब 280;चिकन तन्दुरी (फुल/हाफ) 500/250;चिकन मलाई टिक्का 280;चिकन सीक कबाब 280"],
+["इण्डियन ब्रेड","","तन्दूरी रोटी 15;तन्दूरी बटर रोटी 20;मिस्सी रोटी 50;प्लेन नान 35;बटर नान 40;गार्लिक नान 60;स्टफ्ड नान 60;प्लेन कुल्चा 40;मसाला कुल्चा 60;पनीर कुल्चा 70;पनीर स्टफ्ड नान 70;वेज स्टफ्ड नान 50;चिकन स्टफ्ड नान 80;ओनियन नान 60;लच्छा पराठा 40;मुगलई पराठा 160;तवा रोटी 15;वेज कुल्चा 50"],
+["राइस","","प्लेन राइस 70;जीरा राइस 80;वेज पुलाव 140;पनीर पुलाव 200;प्लेन पुलाव 100;नवरत्न पुलाव 200"],
+["फ्राइड राइस","","वेज फ्राइड राइस 120;वेज मिक्स फ्राइड राइस 170;पनीर फ्राइड राइस 150;चिकन फ्राइड राइस 150;चिकन मिक्स फ्राइड राइस 180;अण्डा फ्राइड राइस 130"],
+["बिरयानी","","वेज बिरयानी 150;वेज हैदराबादी बिरयानी 170;पनीर बिरयानी 170;अण्डा बिरयानी 170;चिकन बिरयानी 190;चिकन हैदराबादी बिरयानी 210;चिकन दम बिरयानी 200;मटन बिरयानी 220;मटन दम बिरयानी 230"],
+["नूडल्स","","वेज चाउमीन 90;पनीर चाउमीन 120;वेज मिक्स चाउमीन 150;वेज हक्का नूडल्स 110;चिकन चाउमीन 140;अण्डा चाउमीन 120;चिकन मिक्स चाउमीन 160;चिकन हक्का नूडल्स 150"],
+["रोल","","वेज रोल 50;पनीर रोल 60;सिंगल अंडा रोल 70;डबल अंडा रोल 80;चिकन रोल 70;सिंगल अंडा चिकन रोल 80;डबल अंडा चिकन रोल 100"],
+["वेज चाईनीज","","पनीर चिल्ली 200;मशरूम चिल्ली 210;बेबीकॉर्न क्रिस्पी चिल्ली 220;पोटैटो चिल्ली 140;वेज मनचूरियन 180;पनीर मनचूरियन 200;मशरूम वोल्कानो 220;मशरूम डंपलिंग 280;पनीर मंगोलियन 280"],
+["नॉन वेज चाईनीज","","चिकन चिल्ली बोन 210;चिकन चिल्ली बोनलेस 240;चिकन मनचूरियन 240;चिकन लॉलीपॉप (6 पीस) 240;चिकन 65 220;ड्रैगन चिकन 260;लेमन चिकन 240;चिकन पेपर ड्राई 220"],
+["मोमो","","वेज मोमो 50;पनीर मोमो 60;चिकन मोमो 80;वेज फ्राइड मोमो 60;पनीर फ्राइड मोमो 70;चिकन फ्राइड मोमो 90;वेज चिल्ली मोमो 80;पनीर चिल्ली मोमो 90;चिकन चिल्ली मोमो 100;वेज कुरकुरे मोमो 70;चिकन कुरकुरे मोमो 100"],
+["बर्गर","","वेज बर्गर 50;पनीर बर्गर 90;चिकन बर्गर 90"],
+["साउथ इण्डियन","","प्लेन डोसा 80;मसाला डोसा 100;पनीर डोसा 120;पनीर बटर मशाला डोसा 130;चिकन सैजवान डोसा 140;रवा डोसा 90;उतपम 80;मसाला उतपम 100;पनीर उतपम 120;ओनियन उतपम 90"],
+["इण्डियन वेज","","मिक्स वेज 180;आलू दम 120;आलू गोभी 120;आलू जीरा 100;आलू मटर 120;आलू दम बनारसी 150;आलू कश्मिरी 160"],
+["भुजिया","","आलू भुजिया 70;भिंडी भुजिया 80;गोभी भुजिया 80;पनीर भुजिया 160;आलू गोभी भुजिया 100"],
+["दाल","","दाल मखनी 120;दाल फ्राई 80;दाल तड़का 80"],
+["पनीर","","पनीर दो प्याजा 230;पनीर कढ़ाई 240;पनीर हाण्डी 230;मटर पनीर 230;पनीर पटियाला 280;पनीर लबाबदार 280;पालक पनीर 240;पनीर दिवानी 280;पनीर बाल्टी 280;पनीर मशाला 230;पनीर बटर मशाला 250;पनीर कोफ्ता 230;पनीर कोल्हापुरी 230;पनीर टिक्का बटर मशाला 260;पनीर पंजाबी 260;शाही पनीर 240;पनीर काशा 230;पनीर स्टू 230"],
+["मशरूम","","मशरूम दो प्याजा 240;मशरूम कढ़ाई 240;मशरूम कढ़ी 230;मशरूम मशाला 240;मशरूम बटर मशाला 250;मशरूम हाण्डी 240;मटर मशरूम 240"],
+["अण्डा","","अण्डा भुजिया 50;अण्डा कढ़ी 100;अण्डा दो प्याजा 110;अण्डा मशाला 110;आमलेट कढ़ी 130;आमलेट 50"],
+["चिकन (4 पीस)","","चिकन दो प्याजा 320;चिकन कढ़ी 300;चिकन कढ़ाई 320;चिकन हाण्डी 320;चिकन स्टू 320;चिकन मशाला 320;चिकन बटर मशाला 340;चिकन देहाती 320"],
+["चिकन स्पेशल","","चिकन मुर्गा मुसल्लम 650;चिकन रारा 650;चिकन टिक्का मशाला 340;चिकन टिक्का बटर मशाला 360;ऋषभ स्पेशल चिकन 650"],
+["मटन (4 पीस)","","मटन कढ़ी 340;मटन दो प्याजा 360;मटन कढ़ाई 360;मटन रोगन जोश 360;मटन स्टू 350;ऋषभ स्पेशल मटन 720;मटन देहाती 350"],
+["फिश (2 पीस)","","फिश कढ़ी 140;फिश दो प्याजा 160;फिश मशाला 160;फिश फ्राई 120"],
+["आईस्क्रीम","","वनीला 70;स्ट्रॉबेरी 70;चॉकलेट 80;बटरस्कॉच 90;केशर पिस्ता 100"]
+];
+var m=document.getElementById("m"),ch=document.getElementById("chips"),h="",c="";
+D.forEach(function(s,i){
+  c+='<a href="#c'+i+'">'+s[0]+'</a>';
+  h+='<section id="c'+i+'"><h2>'+s[0]+'</h2><ul>'+s[2].split(";").map(function(x){
+    var k=x.lastIndexOf(" ");return '<li><span>'+x.slice(0,k)+'</span><b>₹'+x.slice(k+1)+'</b></li>';
+  }).join("")+'</ul></section>';
+});
+m.innerHTML=h;ch.innerHTML=c;
+document.getElementById("q").addEventListener("input",function(e){
+  var t=e.target.value.trim().toLowerCase(),any=false;
+  document.querySelectorAll("section").forEach(function(s){
+    var vis=0;
+    s.querySelectorAll("li").forEach(function(l){var ok=!t||l.textContent.toLowerCase().indexOf(t)>-1||s.firstChild.textContent.toLowerCase().indexOf(t)>-1;l.classList.toggle("hide",!ok);if(ok)vis++;});
+    s.classList.toggle("hide",!vis);if(vis)any=true;
+  });
+  document.getElementById("none").classList.toggle("hide",any);
+});
+document.getElementById("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent("नमस्ते, मुझे ऑर्डर करना है:");
+</script></body></html>
